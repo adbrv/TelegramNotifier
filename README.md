@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/adbrv/TelegramNotifier.svg)](https://jitpack.io/#adbrv/TelegramNotifier)
+
 # TelegramNotifier
 
 A small library for sending messages to telegram users. Basically it is used to send messages to itself from programs or
