@@ -6,7 +6,7 @@
 
     <groupId>ru.itinco</groupId>
     <artifactId>TelegramNotifier</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <name>Simple Telegram notification library</name>
     <description>Telegram library to sending messages</description>
     <packaging>jar</packaging>
