@@ -1,3 +1,5 @@
+package ru.itinco.telegramnotifier;
+
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.net.http.HttpClient;
@@ -9,8 +11,8 @@ public class TelegramNotifier {
 
     private String message="";
 
-    private String CHAT_ID;
-    private String TOKEN;
+    private String chatId;
+    private String token;
 
     /**
      * Simple send message to telegram user
@@ -21,7 +23,7 @@ public class TelegramNotifier {
      */
     public int sendMessage() throws IOException, InterruptedException {
 
-        HttpClient client = HttpClient.newBuilder()
+        HttpClient httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(5))
                 .version(HttpClient.Version.HTTP_2)
                 .build();
@@ -29,16 +31,16 @@ public class TelegramNotifier {
         UriBuilder builder = UriBuilder
                 .fromUri("https://api.telegram.org")
                 .path("/{token}/sendMessage")
-                .queryParam("chat_id", CHAT_ID)
+                .queryParam("chat_id", chatId)
                 .queryParam("text", message);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(builder.build("bot" + TOKEN))
-                .timeout(Duration.ofSeconds(5))
+                .uri(builder.build("bot" + token))
+                .timeout(Duration.ofSeconds(10))
                 .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         return response.statusCode();
 
@@ -51,11 +53,11 @@ public class TelegramNotifier {
             notifier=new TelegramNotifier();
         }
         public Builder withToken(String token){
-            notifier.TOKEN=token;
+            notifier.token =token;
             return this;
         }
         public Builder withChatId(String chatId){
-            notifier.CHAT_ID=chatId;
+            notifier.chatId =chatId;
             return this;
         }
         public Builder withMessage(String message){
